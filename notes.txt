@@ -1,9 +1,0 @@
-Colour:
-#660066
-
-Font:
-<link href="https://fonts.googleapis.com/css?family=Cutive+Mono" rel="stylesheet"> 
-
-<style>
-@import url('https://fonts.googleapis.com/css?family=Cutive+Mono');
-</style> 

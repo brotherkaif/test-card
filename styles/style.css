@@ -19,18 +19,36 @@ p, li {
 }
 
 body {
-    width: 720px;
     margin: 0 auto;
     background-color: #000000;
-    padding: 0 20px 20px 20px;
+    padding: 0 10px 10px 10px;
     border: 5px solid #111111;
 }
 
 img {
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
 }
 
-.deactivated {
-    filter: blur(3px);
+table {
+  border-collapse: collapse;
+  border: 2px solid rgb(200,200,200);
+}
+
+td, th {
+  border: 1px solid rgb(190,190,190);
+  padding: 10px 20px;
+}
+
+th {
+  background-color: rgb(20,20,20);
+}
+
+td {
+  text-align: center;
+}
+
+caption {
+  padding: 10px;
 }

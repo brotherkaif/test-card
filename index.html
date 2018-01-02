@@ -16,6 +16,7 @@
     <h1>TEST CARD</h1>
     
     <figure>
+      <!-- DISABLING TO SAVE BANDWIDTH! 
       <img  srcset="images/placeholder-320w.png 320w,
                     images/placeholder-480w.png 480w,
                     images/placeholder-720w.png 720w"
@@ -25,15 +26,14 @@
             src="images/placeholder-720w.png"
             alt="An abstract representation of an analogue signal."
             title="A placeholder image to conserve video bandwidth during development"> 
-      <!-- DISABLING TO SAVE BANDWIDTH! 
-      <video controls width="720" height="720" autoplay preload="auto">
-          <source src="https://s3.eu-west-2.amazonaws.com/test-card-data/videos/webm/17a55e73189d2ddcec949d7eeec3f065.webm" type="video/webm">
-          <source src="https://s3.eu-west-2.amazonaws.com/test-card-data/videos/mp4/17a55e73189d2ddcec949d7eeec3f065.mp4" type="video/mp4">
-          <source src="https://s3.eu-west-2.amazonaws.com/test-card-data/videos/ogv/17a55e73189d2ddcec949d7eeec3f065.ogv" type="video/ogg">
-          <track kind="captions" src="https://s3.eu-west-2.amazonaws.com/test-card-data/metadata/vtt/17a55e73189d2ddcec949d7eeec3f065.vtt" srclang="en">
+      -->
+      <video id="main-player" controls>
+          <source id="main-player-source-webm" src="https://s3.eu-west-2.amazonaws.com/test-card-data/videos/webm/17a55e73189d2ddcec949d7eeec3f065.webm" type="video/webm">
+          <source id="main-player-source-mp4" src="https://s3.eu-west-2.amazonaws.com/test-card-data/videos/mp4/17a55e73189d2ddcec949d7eeec3f065.mp4" type="video/mp4">
+          <source id="main-player-source-ogv" src="https://s3.eu-west-2.amazonaws.com/test-card-data/videos/ogv/17a55e73189d2ddcec949d7eeec3f065.ogv" type="video/ogg">
+          <track id="main-player-captions" label="Attributions" kind="captions" srclang="en" src="../test-card-videos/17a55e73189d2ddcec949d7eeec3f065.vtt" default>
           <p>Your browser does not appear to support HTML5 video. Do yourself a favour and <a href="https://browsehappy.com" title="A site that links to the latest browser installs." target="_blank">update your browser</a>.</p>
       </video>
-      -->
       <figcaption>
         
         <table class="center">

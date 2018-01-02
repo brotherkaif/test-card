@@ -10,6 +10,7 @@ h1 {
     text-align: center;
     margin: 0;
     padding: 20px 0;
+    min-width: 360px;
 }
 
 p, li {
@@ -31,10 +32,20 @@ img {
   max-width: 100%;
 }
 
+video{
+  width: 100% !important;
+  max-width: 720px;
+  min-width: 360px; 
+  height: auto !important;
+  display: block;
+  margin: 0 auto;
+}
+
 table {
   border-collapse: collapse;
   border: 2px solid rgb(200,200,200);
   max-width: 800px;
+  min-width: 360px; 
 }
 
 table.center {

@@ -7,6 +7,14 @@ const DOMStrings = {
     videoAttributions: 'videoAttributions'
 };
 
+// Define constants for DOM manipulation for easier to read code.
+const videoPlayer = document.getElementById(DOMStrings.videoPlayer);
+const videoSourceWebm = document.getElementById(DOMStrings.videoSourceWebm);
+const videoSourceMP4 = document.getElementById(DOMStrings.videoSourceMP4);
+const videoSourceOgg = document.getElementById(DOMStrings.videoSourceOgg);
+// const videoAttributions = document.getElementById(DOMStrings.videoAttributions);
+
+
 // An array of all videoIDs. Need to find a way to pull this in from S3 dynamically.
 const vidIDPool = [
     '017c7abfc6a9ea766e8b4b6f681bbafa',
@@ -33,25 +41,55 @@ const vidIDPool = [
     'fdfdd9edff540e81c306f943a4f635d0'
 ];
 
-// Define constants for DOM manipulation for easier to read code.
-const videoPlayer = document.getElementById(DOMStrings.videoPlayer);
-const videoSourceWebm = document.getElementById(DOMStrings.videoSourceWebm);
-const videoSourceMP4 = document.getElementById(DOMStrings.videoSourceMP4);
-const videoSourceOgg = document.getElementById(DOMStrings.videoSourceOgg);
-// const videoAttributions = document.getElementById(DOMStrings.videoAttributions);
+let playlist = [];
 
+// Deep copy from the pool and fill playlist
+function fillPlaylist() {
+    console.log('[DEBUG] fillPlaylist function called.');
+    playlist = vidIDPool.slice();
+    console.log('[DEBUG] Playlist filled.');
+    console.log('[DEBUG] Playlist = ' + playlist);
+}
+
+// A function that will fetch a random vidID from the playlist and returns just the selection.
+function fetchVidID() {
+    console.log('[DEBUG] fetchVidID function called.');
+    console.log('[DEBUG] Playlist currently = ' + playlist);
+    console.log('[DEBUG] Running size check...');
+    
+    // reload playlist if empty.
+    if (playlist.length < 2) {
+        console.log('[DEBUG] Playlist is empty. Calling fillPlaylist function...');
+        fillPlaylist();
+    }
+    
+    console.log('[DEBUG] Playlist is big enough.');
+    console.log('[DEBUG] Making a random selection...');
+    let randomSelection = Math.floor(Math.random() * playlist.length);
+    console.log('[DEBUG] Number chosen: ' + randomSelection);
+    console.log('[DEBUG] vidID chosed: ' + playlist[randomSelection]);
+    
+    console.log('[DEBUG] Returning value...');
+    return (playlist.splice(randomSelection, 1))[0];
+}
 
 // Picks a random vid from the pool and loads it into the player.
-function loadNextVid() {
-    // Set our variables.
+function loadNextVid(vidID) {
+    console.log('[DEBUG] playNextVid function called.');
+    console.log('[DEBUG] vidID value received: ' + vidID);
     
-    let vidID = vidIDPool[Math.floor(Math.random() * vidIDPool.length)];
-    
+    console.log('[DEBUG] Setting paths...');
     let pathWebm = 'https://s3.eu-west-2.amazonaws.com/test-card-data/videos/webm/' + vidID + '.webm';
     let pathMP4 = 'https://s3.eu-west-2.amazonaws.com/test-card-data/videos/mp4/' + vidID + '.mp4';
     let pathOgg = 'https://s3.eu-west-2.amazonaws.com/test-card-data/videos/ogv/' + vidID + '.ogv';
     // let pathAttributions = 'https://s3.eu-west-2.amazonaws.com/test-card-data/metadata/vtt/' + vidID + '.vtt';
     
+    console.log('[DEBUG] pathWebm = ' + pathWebm);
+    console.log('[DEBUG] pathMP4 = ' + pathMP4);
+    console.log('[DEBUG] pathOgg = ' + pathOgg);
+    
+    
+    console.log('[DEBUG] Setting sources...');
     // Stop the vid, load the next one, then play.
     videoPlayer.pause();
     videoSourceWebm.setAttribute('src', pathWebm);
@@ -59,9 +97,19 @@ function loadNextVid() {
     videoSourceOgg.setAttribute('src', pathOgg);
     // videoAttributions.setAttribute('src', pathAttributions);
     videoPlayer.load();
-    videoPlayer.play(); 
+    console.log('[DEBUG] Done.');
 }
 
 const changeVideoButton = document.getElementById("changeVideoButton");
-changeVideoButton.addEventListener("click", loadNextVid);
-videoPlayer.addEventListener("ended", loadNextVid);
+changeVideoButton.addEventListener("click", () => {
+    loadNextVid(fetchVidID());
+    videoPlayer.play(); 
+}, false);
+
+videoPlayer.addEventListener("ended", () => {
+    loadNextVid(fetchVidID());
+    videoPlayer.play(); 
+}, false);
+
+console.log('script loaded');
+loadNextVid(fetchVidID());
